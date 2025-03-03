@@ -8,6 +8,11 @@ public class Main{
         System.out.println(InverteString("Artur"));
         System.out.println(Fibonacci(5));
         System.out.println(SequenciaAckerman(3, 4));
+        System.out.println(somaEProdutoVetor(new int[] {10,20,30})[0]);
+        System.out.println(somaEProdutoVetor(new int[] {10,20,30})[1]);
+        System.out.println(ehPalindromo("aaaaaa"));;
+        System.out.println(ehPalindromo("bcd"));;
+
 
     }
 
@@ -78,7 +83,27 @@ public static int SequenciaAckerman(int m, int n){
 }
 
 // A partir de um vetor de números inteiros, calcule a soma e o produto dos elementos do vetor.
+public static int[] somaEProdutoVetor(int[] vetor) {
+    return somaEProdutoRec(vetor, vetor.length - 1);
+}
+
+private static int[] somaEProdutoRec(int[] vetor, int index) {
+    if (index < 0) {
+        return new int[]{0, 1};
+    }
+    int[] resultado = somaEProdutoRec(vetor, index - 1);
+    return new int[]{resultado[0] + vetor[index], resultado[1] * vetor[index]};
+}
 // Verifique se uma palavra é palíndromo (Ex. aba, abcba, xyzzyx).
+public static boolean ehPalindromo(String palavra) {
+    if (palavra.length() <= 1) {
+        return true; // Caso base: uma string de tamanho 0 ou 1 é um palíndromo
+    }
+    if (palavra.charAt(0) != palavra.charAt(palavra.length() - 1)) {
+        return false; // Se o primeiro e o último caractere não forem iguais, não é palíndromo
+    }
+    return ehPalindromo(palavra.substring(1, palavra.length() - 1)); // Recursão
+}
 // Dado um número n, gere todas as possíveis combinações com as n primeiras letras do alfabeto. Ex.: n = 3. Resposta: ABC, ACB, BAC, BCA, CAB, CBA.
 // Defina uma sequência de Fibonacci generalizada, de f0 a f1 como sequência fibg(f0, f1, 0), fibg(f0, f1, 1), fibg(f0, f1, 2), ..., onde:
 // fibg(f0, f1, 0) = f0
